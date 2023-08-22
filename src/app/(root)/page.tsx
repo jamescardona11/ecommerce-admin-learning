@@ -1,9 +1,10 @@
-import { Button } from '@/components/ui/button'
+import { UserButton } from '@clerk/nextjs'
 
 function HomePage () {
   return (
     <div>
-      <Button> Hola</Button>
+      <UserButton afterSignOutUrl='/' />
+      <div>Hey</div>
     </div>
   )
 }
