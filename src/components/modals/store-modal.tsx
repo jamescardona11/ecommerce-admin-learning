@@ -2,8 +2,8 @@
 
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useStoreModal } from '@/hooks/use-store-modal'
 import { Modal } from '@/components/ui/modal'
@@ -24,7 +24,6 @@ const formSchema = z.object({
 
 export const StoreModal = () => {
   const storeModal = useStoreModal()
-
   const [loading, setLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,8 +37,20 @@ export const StoreModal = () => {
     try {
       setLoading(true)
       console.log(values)
+      console.log('values')
+      console.log(JSON.stringify(values))
+      const res = await fetch('/api/stores  ', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      })
+
+      const data = await res.json()
+      console.log(data)
     } catch (err) {
-      // todo
+      console.log(err)
     } finally {
       setLoading(false)
     }
@@ -63,7 +74,11 @@ export const StoreModal = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder='E-commerce' {...field} />
+                      <Input
+                        disabled={loading}
+                        placeholder='E-commerce'
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage> Required </FormMessage>
                   </FormItem>
