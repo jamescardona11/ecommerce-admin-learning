@@ -1,12 +1,18 @@
-import { UserButton } from '@clerk/nextjs'
+'use client'
 
-function HomePage () {
+import { UserButton } from '@clerk/nextjs'
+import { Modal } from '@/components/ui/modal'
+
+function SetupPage () {
   return (
-    <div>
-      <UserButton afterSignOutUrl='/' />
-      <div>Hey</div>
+    <div className='p-4'>
+      <Modal
+        title='Modal Title'
+        description='Modal Description'
+        isOpen={true}
+        onClose={() => {}} > Children </Modal>
     </div>
   )
 }
 
-export default HomePage
+export default SetupPage
