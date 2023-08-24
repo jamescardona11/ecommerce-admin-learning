@@ -48,9 +48,7 @@ export const StoreModal = () => {
       })
 
       const data = await res.json()
-      console.log(data)
-
-      toast.success('Store created successfully')
+      window.location.assign(`/${data.id}`)
     } catch (err) {
       toast.error('Something went wrong')
       console.log(err)
