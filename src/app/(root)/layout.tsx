@@ -1,20 +1,8 @@
 import { redirect } from 'next/navigation'
-import { auth } from '@clerk/nextjs'
-
-import prismadb from '@/lib/prismadb'
+import redirectOrGetStore from '@/components/server-components/base-redirect'
 
 async function SetupLayout({ children }: { children: React.ReactNode }) {
-  const { userId } = auth()
-
-  if (userId == null) {
-    redirect('/sign-in')
-  }
-
-  const store = await prismadb.store.findFirst({
-    where: {
-      userId
-    }
-  })
+  const store = await redirectOrGetStore()
 
   if (store != null) {
     redirect(`/${store.id}`)
