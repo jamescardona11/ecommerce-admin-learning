@@ -4,10 +4,7 @@ import { redirect } from 'next/navigation'
 
 import prismadb from '@/lib/prismadb'
 
-const redirectOrGetStore = async (
-  storeId?: string,
-  customRedirect?: string
-) => {
+const redirectOrGetStore = async (storeId?: string) => {
   const { userId } = auth()
   if (userId == null) {
     redirect('/sign-in')
@@ -18,12 +15,6 @@ const redirectOrGetStore = async (
     store = await getStoreByUserId(userId)
   } else {
     store = await getStoreByStoreId(storeId, userId)
-  }
-
-  if (store == null && customRedirect != null) {
-    redirect(customRedirect)
-  } else if (store == null) {
-    redirect('/')
   }
 
   return store
