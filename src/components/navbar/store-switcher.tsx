@@ -83,7 +83,9 @@ export default function StoreSwitcher({
               {formattedItems.map(store => (
                 <CommandItem
                   key={store.value}
-                  onSelect={() => onStoreSelect(store)}
+                  onSelect={() => {
+                    onStoreSelect(store)
+                  }}
                   className='text-sm'
                 >
                   <StoreIcon className='mr-2 h-4 w-4' />

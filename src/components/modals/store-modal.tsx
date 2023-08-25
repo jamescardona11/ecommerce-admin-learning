@@ -1,11 +1,10 @@
 'use client'
 
 import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
-
-import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useStoreModal } from '@/hooks/use-store-modal'
 import { Modal } from '@/components/ui/modal'
@@ -24,18 +23,20 @@ const formSchema = z.object({
   name: z.string().min(4)
 })
 
+type StoreFormValue = z.infer<typeof formSchema>
+
 export const StoreModal = () => {
   const storeModal = useStoreModal()
   const [loading, setLoading] = useState(false)
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<StoreFormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: ''
     }
   })
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: StoreFormValue) => {
     try {
       setLoading(true)
 
@@ -81,7 +82,7 @@ export const StoreModal = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage> Required </FormMessage>
+                    <FormMessage />
                   </FormItem>
                 )}
               />

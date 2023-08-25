@@ -18,13 +18,14 @@
         "react"
     ],
     "rules": {
-        "react/prop-types": "off",
-        "react/react-in-jsx-scope": "off",
-        "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-misused-promises": "off",
-        "@typescript-eslint/no-confusing-void-expression": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/consistent-type-definitions": "off"
+        "react/prop-types": "off", //def
+        "react/react-in-jsx-scope": "off", //def
+        "@typescript-eslint/no-floating-promises": "off", // def
+        "@typescript-eslint/explicit-function-return-type": "off", // def
+        "@typescript-eslint/no-misused-promises": "off", // def
+        "@typescript-eslint/no-non-null-assertion": "off", //ok
+        "@typescript-eslint/restrict-template-expressions": "off" //ok - https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/restrict-template-expressions.md
+        // "@typescript-eslint/no-confusing-void-expression": "off",
+        // "@typescript-eslint/consistent-type-definitions": "off"
     }
 }
