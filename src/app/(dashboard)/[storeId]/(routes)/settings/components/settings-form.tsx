@@ -21,6 +21,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import AlertModal from '@/components/modals/alert-modal'
 
 interface SettingsFormProps {
   initialData: Store
@@ -67,8 +68,37 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
     }
   }
 
+  const onDeleteConfirmed = async () => {
+    try {
+      setLoading(true)
+
+      await fetch(`/api/stores/${params.storeId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      router.push('/')
+      setOpen(false)
+    } catch (error) {
+      toast.error('Something went wrong')
+    } finally {
+      setOpen(false)
+      setLoading(false)
+    }
+  }
+
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => {
+          setOpen(false)
+        }}
+        onConfirm={onDeleteConfirmed}
+        loading={loading}
+      />
       <div className='flex items-center justify-between'>
         <Heading title='Settings' description='Manage your store preferences' />
         <Button
