@@ -26,11 +26,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const params = useParams()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+  console.log(params)
 
   const onConfirm = async () => {
     try {
       setLoading(true)
-      await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+      await fetch(`/api/${params.storeId}/billboards/${data.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

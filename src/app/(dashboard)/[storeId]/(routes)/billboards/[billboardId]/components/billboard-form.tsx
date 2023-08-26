@@ -13,7 +13,14 @@ import { type Billboard } from '@prisma/client'
 import { Heading } from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { AlertModal } from '@/components/modals/alert-modal'
 import { ImageUpload } from '@/components/ui/image-upload'
@@ -54,7 +61,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
       setLoading(true)
 
       if (initialData != null) {
-        console.log('PATH', values)
         await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
           method: 'PATH',
           headers: {
@@ -63,7 +69,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
           body: JSON.stringify(values)
         })
       } else {
-        console.log('POST', values)
         await fetch(`/api/${params.storeId}/billboards`, {
           method: 'POST',
           headers: {
@@ -143,7 +148,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
                     value={field?.value?.length > 0 ? [field.value] : []}
                     disabled={loading}
                     onChange={url => {
-                      console.log(url)
                       field.onChange(url)
                     }}
                     onRemove={() => {

@@ -52,7 +52,6 @@ export const StoreModal = () => {
       window.location.assign(`/${data.id}`)
     } catch (err) {
       toast.error('Something went wrong')
-      console.log(err)
     } finally {
       setLoading(false)
     }
@@ -76,22 +75,14 @@ export const StoreModal = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder='E-commerce'
-                        {...field}
-                      />
+                      <Input disabled={loading} placeholder='E-commerce' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className='pt-6 space-x-2 flex items-center justify-end w-full'>
-                <Button
-                  disabled={loading}
-                  variant='outline'
-                  onClick={storeModal.onClose}
-                >
+                <Button disabled={loading} variant='outline' onClick={storeModal.onClose}>
                   Cancel
                 </Button>
                 <Button disabled={loading} type='submit'>
