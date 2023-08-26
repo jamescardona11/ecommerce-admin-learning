@@ -10,10 +10,15 @@ export const getURL = () => {
   return url
 }
 
-export const isProduction = () => process.env.NODE_ENV === 'production' 
+export const isProduction = () => process.env.NODE_ENV === 'production'
 
 export const toDateTime = (secs: number) => {
   const t = new Date('1970-01-01T00:30:00Z') // Unix epoch start.
   t.setSeconds(secs)
   return t
 }
+
+export const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+})
