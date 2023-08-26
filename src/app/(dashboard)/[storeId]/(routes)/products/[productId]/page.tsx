@@ -1,4 +1,5 @@
 import prismadb from '@/lib/prismadb'
+
 import { ProductForm } from './components/products-form'
 
 const ProductPage = async ({

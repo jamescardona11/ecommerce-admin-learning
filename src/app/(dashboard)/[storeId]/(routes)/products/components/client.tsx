@@ -27,7 +27,7 @@ const ProductsClient: React.FC<ProductClientProps> = ({ data }) => {
         />
         <Button
           onClick={() => {
-            router.push(`/${params.storeId}/billboards/new`)
+            router.push(`/${params.storeId}/products/new`)
           }}
         >
           <Plus className='mr-2 h-4 w-4' />
