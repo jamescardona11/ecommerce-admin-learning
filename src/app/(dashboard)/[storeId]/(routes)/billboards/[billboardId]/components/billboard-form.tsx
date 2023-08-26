@@ -53,16 +53,27 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
     try {
       setLoading(true)
 
-      await fetch(`/api/stores/${params.storeId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
-      })
+      if (initialData != null) {
+        await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+          method: 'PATH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(values)
+        })
+      } else {
+        await fetch(`/api/${params.storeId}/billboards`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(values)
+        })
+      }
 
       router.refresh()
-      toast.success('Store updated')
+      router.push(`/${params.storeId}/billboards`)
+      toast.success(toastMessage)
     } catch (error) {
       toast.error('Something went wrong')
     } finally {
@@ -74,17 +85,17 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
     try {
       setLoading(true)
 
-      await fetch(`/api/stores/${params.storeId}`, {
+      await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
       })
 
-      router.push('/')
-      setOpen(false)
+      router.refresh()
+      router.push(`/${params.storeId}/billboards`)
     } catch (error) {
-      toast.error('Something went wrong')
+      toast.error('Make sure you removed all categories using this billboard first')
     } finally {
       setOpen(false)
       setLoading(false)

@@ -12,14 +12,7 @@ import { type Store } from '@prisma/client'
 import { Heading } from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import AlertModal from '@/components/modals/alert-modal'
 import ApiAlert from '@/components/ui/api-alert'
@@ -82,8 +75,8 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         }
       })
 
+      // setOpen(false)
       router.push('/')
-      setOpen(false)
     } catch (error) {
       toast.error('Something went wrong')
     } finally {
@@ -117,10 +110,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          className='space-y-8 w-full'
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
+        <form className='space-y-8 w-full' onSubmit={form.handleSubmit(onSubmit)}>
           <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
@@ -129,11 +119,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
                 <FormItem>
                   <FormLabel> Name </FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder='Store name'
-                      {...field}
-                    />
+                    <Input disabled={loading} placeholder='Store name' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -146,11 +132,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         </form>
       </Form>
       <Separator />
-      <ApiAlert
-        title='NEXT_PUBLIC_API_URL'
-        description={`${origin}/api/${params.storeId}`}
-        variant='public'
-      />
+      <ApiAlert title='NEXT_PUBLIC_API_URL' description={`${origin}/api/${params.storeId}`} variant='public' />
     </>
   )
 }
