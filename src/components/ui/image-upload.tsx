@@ -2,10 +2,10 @@
 
 import { CldUploadWidget } from 'next-cloudinary'
 import { useEffect, useState } from 'react'
-import { ImagePlus, Trash } from 'lucide-react'
-import Image from 'next/image'
 
-import { Button } from './button'
+import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import { ImagePlus, Trash } from 'lucide-react'
 
 interface ImageUploadProps {
   disabled?: boolean
@@ -25,26 +25,28 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ disabled, onChange, onRemove,
     onChange(result.info.secure_url)
   }
 
-  if (!isMounted) return null
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <div>
       <div className='mb-4 flex items-center gap-4'>
         {value.map(url => (
-          <div key={url} className='relative w-[200px] rounded-md overflow-hidden '>
-            <div className='z-10 absolute top-1 right-2'>
+          <div key={url} className='relative w-[200px] h-[200px] rounded-md overflow-hidden'>
+            <div className='z-10 absolute top-2 right-2'>
               <Button
                 type='button'
                 variant='destructive'
-                size='icon'
+                size='sm'
                 onClick={() => {
                   onRemove(url)
                 }}
               >
-                <Trash className='h-4 w-4'></Trash>
+                <Trash className='h-4 w-4' />
               </Button>
             </div>
-            <Image fill={true} className='object-cover' alt='Image' src={url} />
+            <Image fill className='object-cover' alt='Image' src={url} />
           </div>
         ))}
       </div>
