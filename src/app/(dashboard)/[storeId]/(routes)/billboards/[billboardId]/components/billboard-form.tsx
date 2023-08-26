@@ -36,7 +36,9 @@ interface BillboardFormProps {
   initialData: Billboard | null
 }
 
-export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
+export const BillboardForm: React.FC<BillboardFormProps> = ({
+  initialData
+}) => {
   const params = useParams()
   const router = useRouter()
 
@@ -44,8 +46,10 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
   const [loading, setLoading] = useState(false)
 
   const title = initialData != null ? 'Edit billboard' : 'New billboard'
-  const description = initialData != null ? 'Edit a billboard' : 'Add a new billboard'
-  const toastMessage = initialData != null ? 'Billboard updated' : 'Billboard created'
+  const description =
+    initialData != null ? 'Edit a billboard' : 'Add a new billboard'
+  const toastMessage =
+    initialData != null ? 'Billboard updated' : 'Billboard created'
   const action = initialData != null ? 'Save changes' : 'Create billboard'
 
   const form = useForm<BillboardFormValue>({
@@ -62,7 +66,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
 
       if (initialData != null) {
         await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
-          method: 'PATH',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
           },
@@ -102,7 +106,9 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
       router.refresh()
       router.push(`/${params.storeId}/billboards`)
     } catch (error) {
-      toast.error('Make sure you removed all categories using this billboard first')
+      toast.error(
+        'Make sure you removed all categories using this billboard first'
+      )
     } finally {
       setOpen(false)
       setLoading(false)
@@ -136,7 +142,10 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
       </div>
       <Separator />
       <Form {...form}>
-        <form className='space-y-8 w-full' onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          className='space-y-8 w-full'
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <FormField
             control={form.control}
             name='imageUrl'
@@ -167,7 +176,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
                 <FormItem>
                   <FormLabel>Label</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder='Billboard label' {...field} />
+                    <Input
+                      disabled={loading}
+                      placeholder='Billboard label'
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

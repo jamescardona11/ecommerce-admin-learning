@@ -111,27 +111,44 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       setLoading(true)
 
       if (initialData != null) {
-        await fetch(`/api/${params.storeId}/products/${params.productId}`, {
-          method: 'PATH',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(values)
-        })
+        console.log(values)
+        console.log(params.productId)
+        const response = await fetch(
+          `/api/${params.storeId}/products/${params.productId}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(values)
+          }
+        )
+
+        console.log(response)
+
+        if (response.status !== 200) {
+          throw new Error('Something went wrong')
+        }
+
+        console.log(response)
       } else {
-        await fetch(`/api/${params.storeId}/products`, {
+        const response = await fetch(`/api/${params.storeId}/products`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(values)
         })
+        if (response.status !== 200) {
+          throw new Error('Something went wrong1')
+        }
       }
 
       router.refresh()
       router.push(`/${params.storeId}/products`)
       toast.success(toastMessage)
     } catch (error) {
+      console.log(error)
       toast.error('Something went wrong')
     } finally {
       setLoading(false)

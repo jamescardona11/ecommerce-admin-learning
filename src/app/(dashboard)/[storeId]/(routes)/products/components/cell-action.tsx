@@ -26,7 +26,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const params = useParams()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  console.log(params)
 
   const onConfirm = async () => {
     try {
@@ -80,7 +79,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/products/${data.id}`)
             }}
           >
             <Edit className='mr-2 h-4 w-4' /> Update

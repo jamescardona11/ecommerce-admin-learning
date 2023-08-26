@@ -74,7 +74,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
 
       if (initialData != null) {
         await fetch(`/api/${params.storeId}/categories/${params.categoryId}`, {
-          method: 'PATH',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json'
           },
