@@ -54,6 +54,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
       setLoading(true)
 
       if (initialData != null) {
+        console.log('PATH', values)
         await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
           method: 'PATH',
           headers: {
@@ -62,6 +63,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
           body: JSON.stringify(values)
         })
       } else {
+        console.log('POST', values)
         await fetch(`/api/${params.storeId}/billboards`, {
           method: 'POST',
           headers: {
