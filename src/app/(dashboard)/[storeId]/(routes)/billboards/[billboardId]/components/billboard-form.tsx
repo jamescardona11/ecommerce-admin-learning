@@ -16,6 +16,7 @@ import { Separator } from '@/components/ui/separator'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import AlertModal from '@/components/modals/alert-modal'
+import ImageUpload from '@/components/ui/image-upload'
 
 const formSchema = z.object({
   label: z.string().min(4),
@@ -39,8 +40,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
   const description = initialData != null ? 'Edit a billboard' : 'Add a new billboard'
   const toastMessage = initialData != null ? 'Billboard updated' : 'Billboard created'
   const action = initialData != null ? 'Save changes' : 'Create billboard'
-
-  console.log(initialData)
 
   const form = useForm<BillboardFormValue>({
     resolver: zodResolver(formSchema),
@@ -120,13 +119,36 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => 
       <Separator />
       <Form {...form}>
         <form className='space-y-8 w-full' onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name='imageUrl'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Background Image</FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value != null ? [field.value] : []}
+                    disabled={loading}
+                    onChange={url => {
+                      console.log(url)
+                      field.onChange(url)
+                    }}
+                    onRemove={() => {
+                      field.onChange('')
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
               name='label'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel> Label </FormLabel>
+                  <FormLabel>Label</FormLabel>
                   <FormControl>
                     <Input disabled={loading} placeholder='Billboard label' {...field} />
                   </FormControl>
