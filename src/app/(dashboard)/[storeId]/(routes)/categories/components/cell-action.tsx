@@ -31,17 +31,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onConfirm = async () => {
     try {
       setLoading(true)
-      await fetch(`/api/${params.storeId}/billboards/${data.id}`, {
+      await fetch(`/api/${params.storeId}/categories/${data.id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
         }
       })
-      toast.success('Billboard deleted.')
+      toast.success('Category deleted.')
       router.refresh()
     } catch (error) {
       toast.error(
-        'Make sure you removed all categories using this billboard first.'
+        'Make sure you removed all products using this category first.'
       )
     } finally {
       setOpen(false)
@@ -51,7 +51,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id)
-    toast.success('Billboard ID copied to clipboard.')
+    toast.success('Category ID copied to clipboard.')
   }
 
   return (
@@ -82,7 +82,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
-              router.push(`/${params.storeId}/billboards/${data.id}`)
+              router.push(`/${params.storeId}/categories/${data.id}`)
             }}
           >
             <Edit className='mr-2 h-4 w-4' /> Update

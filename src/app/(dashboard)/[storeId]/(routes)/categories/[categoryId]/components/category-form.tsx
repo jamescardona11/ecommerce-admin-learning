@@ -8,11 +8,18 @@ import { Trash } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { useParams, useRouter } from 'next/navigation'
 
-import { type Category } from '@prisma/client'
+import { type Billboard, type Category } from '@prisma/client'
 
 import { Heading } from '@/components/ui/heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import {
   Form,
   FormControl,
@@ -33,9 +40,13 @@ type CategoryFormValue = z.infer<typeof formSchema>
 
 interface CategoryFormProps {
   initialData: Category | null
+  billboards: Billboard[]
 }
 
-export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
+export const CategoryForm: React.FC<CategoryFormProps> = ({
+  initialData,
+  billboards
+}) => {
   const params = useParams()
   const router = useRouter()
 
@@ -43,8 +54,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const [loading, setLoading] = useState(false)
 
   const title = initialData != null ? 'Edit category' : 'New category'
-  const description = initialData != null ? 'Edit a category' : 'Add a new category'
-  const toastMessage = initialData != null ? 'Category updated' : 'Category created'
+  const description =
+    initialData != null ? 'Edit a category' : 'Add a new category'
+  const toastMessage =
+    initialData != null ? 'Category updated' : 'Category created'
   const action = initialData != null ? 'Save changes' : 'Create category'
 
   const form = useForm<CategoryFormValue>({
@@ -60,7 +73,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       setLoading(true)
 
       if (initialData != null) {
-        await fetch(`/api/${params.storeId}/category/${params.categoryId}`, {
+        await fetch(`/api/${params.storeId}/categories/${params.categoryId}`, {
           method: 'PATH',
           headers: {
             'Content-Type': 'application/json'
@@ -68,7 +81,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
           body: JSON.stringify(values)
         })
       } else {
-        await fetch(`/api/${params.storeId}/category`, {
+        await fetch(`/api/${params.storeId}/categories`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -78,7 +91,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       }
 
       router.refresh()
-      router.push(`/${params.storeId}/billboards`)
+      router.push(`/${params.storeId}/categories`)
       toast.success(toastMessage)
     } catch (error) {
       toast.error('Something went wrong')
@@ -91,7 +104,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
     try {
       setLoading(true)
 
-      await fetch(`/api/${params.storeId}/billboards/${params.billboardId}`, {
+      await fetch(`/api/${params.storeId}/categories/${params.categoryId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -99,9 +112,11 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       })
 
       router.refresh()
-      router.push(`/${params.storeId}/billboards`)
+      router.push(`/${params.storeId}/categories`)
     } catch (error) {
-      toast.error('Make sure you removed all categories using this billboard first')
+      toast.error(
+        'Make sure you removed all products using this category first'
+      )
     } finally {
       setOpen(false)
       setLoading(false)
@@ -135,7 +150,10 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form className='space-y-8 w-full' onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          className='space-y-8 w-full'
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <div className='grid grid-cols-3 gap-8'>
             <FormField
               control={form.control}
@@ -150,6 +168,39 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='billboardId'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Billboard</FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder='Select a billboard'
+                        ></SelectValue>
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {billboards.map(billboard => (
+                        <SelectItem key={billboard.id} value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
                   <FormMessage />
                 </FormItem>
               )}
