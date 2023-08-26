@@ -6,15 +6,15 @@ import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Heading } from '@/components/ui/heading'
 import { Separator } from '@/components/ui/separator'
-import { columns, type BillboardColumn } from './columns'
+import { columns, type CategoryColumn } from './columns'
 import { DataTable } from '@/components/ui/data-table'
 import { ApiList } from '@/components/ui/api-list'
 
-interface BillboardClientProps {
-  data: BillboardColumn[]
+interface CategoryClientProps {
+  data: CategoryColumn[]
 }
 
-const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
+const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
   const params = useParams()
   const router = useRouter()
 
@@ -22,12 +22,12 @@ const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
     <>
       <div className='flex items-center justify-between'>
         <Heading
-          title={`Billboards (${data.length})`}
-          description='Manage billboards for your store'
+          title={`Categories (${data.length})`}
+          description='Manage categories for your store'
         />
         <Button
           onClick={() => {
-            router.push(`/${params.storeId}/billboards/new`)
+            router.push(`/${params.storeId}/categories/new`)
           }}
         >
           <Plus className='mr-2 h-4 w-4' />
@@ -35,12 +35,12 @@ const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey='label' columns={columns} data={data} />
-      <Heading title='API' description='API call for Billboards' />
+      <DataTable searchKey='name' columns={columns} data={data} />
+      <Heading title='API' description='API call for Categories' />
       <Separator />
-      <ApiList entityName='billboards' entityIdName='billboardId' />
+      <ApiList entityName='categories' entityIdName='categoryId' />
     </>
   )
 }
 
-export { BillboardClient }
+export { CategoryClient }

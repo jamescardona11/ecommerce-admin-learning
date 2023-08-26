@@ -47,4 +47,4 @@ const ApiList: React.FC<ApiListProps> = ({ entityIdName, entityName }) => {
   )
 }
 
-export default ApiList
+export { ApiList }
