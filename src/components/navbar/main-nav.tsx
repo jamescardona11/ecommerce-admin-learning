@@ -13,28 +13,48 @@ export function MainNav({
   className: string
   props?: React.HTMLAttributes<HTMLElement>
 }) {
-  const pathName = usePathname()
+  const pathname = usePathname()
   const params = useParams()
   const routes = [
     {
       href: `/${params.storeId}`,
       label: 'Overview',
-      active: pathName === `/${params.storeId}`
+      active: pathname === `/${params.storeId}`
     },
     {
       href: `/${params.storeId}/billboards`,
       label: 'Billboards',
-      active: pathName === `/${params.storeId}/billboards`
+      active: pathname === `/${params.storeId}/billboards`
     },
     {
       href: `/${params.storeId}/categories`,
       label: 'Categories',
-      active: pathName === `/${params.storeId}/categories`
+      active: pathname === `/${params.storeId}/categories`
+    },
+    {
+      href: `/${params.storeId}/sizes`,
+      label: 'Sizes',
+      active: pathname === `/${params.storeId}/sizes`
+    },
+    {
+      href: `/${params.storeId}/colors`,
+      label: 'Colors',
+      active: pathname === `/${params.storeId}/colors`
+    },
+    {
+      href: `/${params.storeId}/products`,
+      label: 'Products',
+      active: pathname === `/${params.storeId}/products`
+    },
+    {
+      href: `/${params.storeId}/orders`,
+      label: 'Orders',
+      active: pathname === `/${params.storeId}/orders`
     },
     {
       href: `/${params.storeId}/settings`,
       label: 'Settings',
-      active: pathName === `/${params.storeId}/settings`
+      active: pathname === `/${params.storeId}/settings`
     }
   ]
 
