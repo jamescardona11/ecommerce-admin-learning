@@ -68,4 +68,4 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ disabled, onChange, onRemove,
   )
 }
 
-export default ImageUpload
+export { ImageUpload }
