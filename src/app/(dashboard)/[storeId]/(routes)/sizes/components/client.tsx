@@ -9,7 +9,7 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { ApiList } from "@/components/ui/api-list";
 
-import { columns, SizeColumn } from "./columns";
+import { columns, type SizeColumn } from "./columns";
 
 interface SizesClientProps {
   data: SizeColumn[];
@@ -25,7 +25,7 @@ export const SizesClient: React.FC<SizesClientProps> = ({
     <>
       <div className="flex items-center justify-between">
         <Heading title={`Sizes (${data.length})`} description="Manage sizes for your products" />
-        <Button onClick={() => router.push(`/${params.storeId}/sizes/new`)}>
+        <Button onClick={() => { router.push(`/${params.storeId}/sizes/new`); }}>
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>
       </div>

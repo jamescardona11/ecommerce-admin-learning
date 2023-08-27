@@ -17,6 +17,9 @@
     "plugins": [
         "react"
     ],
+    "ignorePatterns": [
+        "src/app/globals.css"
+    ],
     "rules": {
         "react/prop-types": "off", //def
         "react/react-in-jsx-scope": "off", //def
