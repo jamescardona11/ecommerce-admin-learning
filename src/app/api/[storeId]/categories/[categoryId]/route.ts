@@ -15,6 +15,9 @@ export async function GET(
     const category = await prismadb.category.findUnique({
       where: {
         id: params.categoryId
+      },
+      include: {
+        billboard: true
       }
     })
 
@@ -101,6 +104,9 @@ export async function PATCH(
     if (storeByUserId == null) {
       return new NextResponse('Unauthorized', { status: 405 })
     }
+
+    console.log('categoryId')
+    console.log(params.categoryId)
 
     const category = await prismadb.category.update({
       where: {

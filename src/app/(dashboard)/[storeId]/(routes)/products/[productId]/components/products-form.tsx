@@ -111,8 +111,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       setLoading(true)
 
       if (initialData != null) {
-        console.log(values)
-        console.log(params.productId)
         const response = await fetch(
           `/api/${params.storeId}/products/${params.productId}`,
           {
@@ -124,13 +122,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           }
         )
 
-        console.log(response)
-
         if (response.status !== 200) {
           throw new Error('Something went wrong')
         }
-
-        console.log(response)
       } else {
         const response = await fetch(`/api/${params.storeId}/products`, {
           method: 'POST',

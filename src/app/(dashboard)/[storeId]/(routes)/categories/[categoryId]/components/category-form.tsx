@@ -68,6 +68,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
     }
   })
 
+  console.log('categoryId')
+  console.log(params.categoryId)
+
   const onSubmit = async (values: CategoryFormValue) => {
     try {
       setLoading(true)

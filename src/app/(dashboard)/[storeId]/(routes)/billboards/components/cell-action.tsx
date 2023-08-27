@@ -26,7 +26,6 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const params = useParams()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  console.log(params)
 
   const onConfirm = async () => {
     try {
@@ -40,7 +39,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       toast.success('Billboard deleted.')
       router.refresh()
     } catch (error) {
-      toast.error('Make sure you removed all categories using this billboard first.')
+      toast.error(
+        'Make sure you removed all categories using this billboard first.'
+      )
     } finally {
       setOpen(false)
       setLoading(false)
